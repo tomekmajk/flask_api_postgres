@@ -1,4 +1,5 @@
-# Readme
+# Readme   
+## How To:   
 put postgres db config in db/db_config.py
 example config:   
 ```
