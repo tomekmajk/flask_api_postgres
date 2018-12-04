@@ -1,6 +1,6 @@
 # Readme
 put postgres db config in db/db_config.py
-example config   
+example config:   
 ```
 CONFIG = {
     'host': 'localhost',
