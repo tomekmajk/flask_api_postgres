@@ -5,11 +5,11 @@ from flask import request
 from flask_api import FlaskAPI
 
 from views.hello import hello_view
-
-APP_BASE_URL_NAME = '/fun'
+from views.auth import authenticate, decode_token
+from config import APP_ROOT
 
 def url(route):
-    return APP_BASE_URL_NAME + route
+    return APP_ROOT + route
 
 app = FlaskAPI(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -18,13 +18,22 @@ app.config['JSON_AS_ASCII'] = False
 def hello():
     return hello_view()
 
-@app.route(url('/data'), methods=['GET', 'POST'])
-def data():
-    if len(request.data) == 0:
-        r_data = None
+@app.route(url('/auth'), methods=['GET', 'POST'])
+def auth():
+    if request.method == 'POST':
+        return authenticate(request)
+    return {
+        'msg': 'give me username and password!'
+    }
+
+@app.route(url('/decode'), methods=['GET', 'POST'])
+def decode():
+    if request.method == 'POST':
+        return decode_token(request)
     else:
-        r_data= request.data
-    return {'request data': r_data}
+        return {
+            'msg': 'give me token!'
+        }
 
 
 if __name__ == "__main__":

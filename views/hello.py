@@ -1,5 +1,3 @@
-from flask import jsonify
-
-def hello_view():
+def hello_view() -> dict:
     msg = {'msg': 'Helloł!'}
     return msg
