@@ -1,6 +1,5 @@
 import jwt
 import os
-
 from config import SECRET_KEY_ENV_VAR_NAME, SECRET_KEY
 
 
