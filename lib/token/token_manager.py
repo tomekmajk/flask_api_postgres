@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from lib.crypto.cypher_manager import CypherManager as cy
+from lib.crypto.cypher_manager import decode, encode
 from lib.helpers.date_operations import str_from_date, date_from_str
 
 try:
@@ -10,7 +10,7 @@ except:
 
 
 def valid_token(token: str) -> bool:
-    decoded = cy.decode(token)
+    decoded = decode(token)
     if not decoded: return False
     expires = decoded.get('expires', None)
     if not expires: return False
@@ -22,5 +22,5 @@ def new_token(user: dict) -> str:
         'username': user['name'],
         'expires': str_from_date(datetime.now() + timedelta(minutes=JWT_LIFETIME))
     }
-    token_encoded = cy.encode(token_data)
+    token_encoded = encode(token_data)
     return token_encoded.decode("utf-8")

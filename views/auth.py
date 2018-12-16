@@ -1,7 +1,7 @@
 from flask_api import status
 from lib.http.response import http_response
 from lib.http.decorators import api_endpoint
-from lib.crypto.cypher_manager import CypherManager as cy
+from lib.crypto.cypher_manager import decode
 from lib.token.token_manager import new_token, valid_token
 from lib.helpers.date_operations import date_from_str, str_from_date
 
@@ -41,7 +41,7 @@ def refresh_token_view(request):
             status.HTTP_400_BAD_REQUEST
         )
     
-    decoded = cy.decode(token)
+    decoded = decode(token)
     response_data = { 
         'token': new_token({
             'id': decoded['user_id'],
